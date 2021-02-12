@@ -1,0 +1,33 @@
+{
+    "aws_access_key_id": "key",
+    "aws_secret_access_key": "secret",
+    "start_date": "2020-08-21T00:00:00Z",
+    "tables": {
+        "people": {
+            "bucket_name": "bucket_name",
+            "search_prefix": "prefix",
+            "search_pattern": "people.csv",
+            "file_type": "csv",
+            "delimiter": "/",
+            "tap_stream_id": "people",
+            "primary_key": ["id"],
+            "replication_method": "FULL_TABLE",
+            "valid_replication_keys": [""],
+            "replication_key": "",
+            "object_type": "PERSON"
+        },
+        "houses": {
+            "bucket_name": "bucket_name",
+            "search_prefix": "prefix_1",
+            "search_pattern": "houses",
+            "file_type": "csv",
+            "delimiter": "/",
+            "tap_stream_id": "houses",
+            "primary_key": ["id"],
+            "replication_method": "INCREMENTAL",
+            "valid_replication_keys": [""],
+            "replication_key": "",
+            "object_type": "HOUSE"
+        }
+    }
+}

@@ -1,0 +1,289 @@
+{
+    "type": ["object", "null"],
+    "properties": {
+        "entityType": {
+            "type": ["string", "null"]
+        },
+        "name": {
+            "type": ["string", "null"]
+        },
+        "guid": {
+            "type": ["string", "null"]
+        },
+        "description": {
+            "type": ["string", "null"]
+        },
+        "groups": {
+            "type": ["array", "null"],
+            "items": {
+                "type": ["object", "null"],
+                "properties": {
+                    "entityType": {
+                        "type": ["string", "null"]
+                    },
+                    "id": {
+                        "type": ["integer", "null"]
+                    },
+                    "idString": {
+                        "type": ["string", "null"]
+                    },
+                    "guid": {
+                        "type": ["string", "null"]
+                    },
+                    "name": {
+                        "type": ["string", "null"]
+                    },
+                    "description": {
+                        "type": ["string", "null"]
+                    },
+                    "imageLink": {
+                        "type": ["string", "null"]
+                    },
+                    "items": {
+                        "type": ["array", "null"],
+                        "items": {
+                            "type": ["object", "null"],
+                            "properties": {
+                                "entityType": {
+                                    "type": ["string", "null"]
+                                },
+                                "name": {
+                                    "type": ["string", "null"]
+                                },
+                                "guid": {
+                                    "type": ["string", "null"]
+                                },
+                                "description": {
+                                    "type": ["string", "null"]
+                                },
+                                "sku": {
+                                    "type": ["string", "null"]
+                                },
+                                "plu": {
+                                    "type": ["string", "null"]
+                                },
+                                "price": {
+                                    "type": ["number", "null"]
+                                },
+                                "prices": {
+                                    "type": ["array", "null"],
+                                    "items": {
+                                        "type": ["object", "null"],
+                                        "properties": {
+                                            "entityType": {
+                                                "type": ["string", "null"]
+                                            },
+                                            "name": {
+                                                "type": ["string", "null"]
+                                            },
+                                            "guid": {
+                                                "type": ["string", "null"]
+                                            },
+                                            "price": {
+                                                "type": ["number", "null"]
+                                            }
+                                        }
+                                    }
+                                },
+                                "optionGroups": {
+                                    "type": ["array", "null"],
+                                    "items": {
+                                        "type": ["object", "null"],
+                                        "properties": {
+                                            "entityType": {
+                                                "type": ["string", "null"]
+                                            },
+                                            "name": {
+                                                "type": ["string", "null"]
+                                            },
+                                            "guid": {
+                                                "type": ["string", "null"]
+                                            },
+                                            "minSelections": {
+                                                "type": ["integer", "null"]
+                                            },
+                                            "maxSelections": {
+                                                "type": ["integer", "null"]
+                                            },
+                                            "pricingMode": {
+                                                "type": ["string", "null"]
+                                            },
+                                            "items": {
+                                                "type": ["array", "null"],
+                                                "items": {
+                                                    "type": ["object", "null"],
+                                                    "properties": {
+                                                        "entityType": {
+                                                            "type": ["string", "null"]
+                                                        },
+                                                        "name": {
+                                                            "type": ["string", "null"]
+                                                        },
+                                                        "guid": {
+                                                            "type": ["string", "null"]
+                                                        },
+                                                        "description": {
+                                                            "type": ["string", "null"]
+                                                        },
+                                                        "sku": {
+                                                            "type": ["string", "null"]
+                                                        },
+                                                        "plu": {
+                                                            "type": ["string", "null"]
+                                                        },
+                                                        "maxSelections": {
+                                                            "type": ["integer", "null"]
+                                                        },
+                                                        "price": {
+                                                            "type": ["number", "null"]
+                                                        },
+                                                        "isDefault": {
+                                                            "type": "boolean"
+                                                        },
+                                                        "optionGroups": {
+                                                            "type": ["array", "null"],
+                                                            "items": {
+                                                                "type": ["string", "null"]
+                                                            }
+                                                        },
+                                                        "idString": {
+                                                            "type": ["string", "null"]
+                                                        },
+                                                        "itemGroupGuid": {
+                                                            "type": ["string", "null"]
+                                                        },
+                                                        "calories": {
+                                                            "type": ["integer", "null"]
+                                                        },
+                                                        "orderableOnline": {
+                                                            "type": ["string", "null"]
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "idString": {
+                                                "type": ["string", "null"]
+                                            },
+                                            "visibility": {
+                                                "type": ["string", "null"]
+                                            },
+                                            "defaultOptionsChargePrice": {
+                                                "type": ["string", "null"]
+                                            },
+                                            "defaultOptionsSubstitutionPricing": {
+                                                "type": ["string", "null"]
+                                            },
+                                            "pricingStrategy": {
+                                                "type": ["string", "null"]
+                                            },
+                                            "pricingStrategyRules": {
+                                                "type": ["string", "null"]
+                                            }
+                                        }
+                                    }
+                                },
+                                "idString": {
+                                    "type": ["string", "null"]
+                                },
+                                "calories": {
+                                    "type": ["integer", "null"]
+                                },
+                                "imageLink": {
+                                    "type": ["string", "null"]
+                                },
+                                "unitOfMeasure": {
+                                    "type": ["string", "null"]
+                                },
+                                "orderableOnline": {
+                                    "type": ["string", "null"]
+                                },
+                                "visibility": {
+                                    "type": ["string", "null"]
+                                }
+                            }
+                        }
+                    },
+                    "subgroups": {
+                        "type": ["array", "null"],
+                        "items": {
+                            "type": ["string", "null"]
+                        }
+                    },
+                    "orderableOnline": {
+                        "type": ["string", "null"]
+                    },
+                    "visibility": {
+                        "type": ["string", "null"]
+                    },
+                    "images": {
+                        "type": ["object", "null"],
+                        "properties": {
+                            "item": {
+                                "type": ["object", "null"],
+                                "properties": {
+                                    "fullPath": {
+                                        "type": ["string", "null"]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "idString": {
+            "type": ["string", "null"]
+        },
+        "orderableOnline": {
+            "type": "boolean"
+        },
+        "orderableOnlineStatus": {
+            "type": ["string", "null"]
+        },
+        "visibility": {
+            "type": ["string", "null"]
+        },
+        "startTime": {
+            "type": ["string", "null"]
+        },
+        "endTime": {
+            "type": ["string", "null"]
+        },
+        "startTimeHHmm": {
+            "type": ["string", "null"]
+        },
+        "endTimeHHmm": {
+            "type": ["string", "null"]
+        },
+        "startTimeLocalStandardTime": {
+            "type": ["string", "null"]
+        },
+        "endTimeLocalStandardTime": {
+            "type": ["string", "null"]
+        },
+        "startTimeHHmmLocalStandardTime": {
+            "type": ["string", "null"]
+        },
+        "endTimeHHmmLocalStandardTime": {
+            "type": ["string", "null"]
+        },
+        "availableAllTimes": {
+            "type": "boolean"
+        },
+        "availableAllDays": {
+            "type": "boolean"
+        },
+        "daysAvailableBits": {
+            "type": ["integer", "null"]
+        },
+        "daysAvailableString": {
+            "type": ["array", "null"],
+            "items": {
+                "type": ["string", "null"]
+            }
+        },
+        "imageLink": {
+            "type": ["string", "null"]
+        }
+    }
+}
