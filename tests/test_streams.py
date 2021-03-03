@@ -20,8 +20,8 @@ def people_csv_data():
 @pytest.fixture
 def records():
     return [
-        {'id': 0, 'name': 'dan', 'age': 10, 'cash': 50.4, 'is_active': True},
-        {'id': 1, 'name': 'ana', 'age': None, 'cash': 7.1, 'is_active': False}
+        {'id': 0, 'name': 'dan', 'age': 10, 'cash': 50.4, 'is_active': True, 'phone': '5555551234'},
+        {'id': 1, 'name': 'ana', 'age': None, 'cash': 7.1, 'is_active': False, 'phone': '555-123-7777'}
     ]
 
 
