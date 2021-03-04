@@ -3,23 +3,22 @@ import json
 import pandas as pd
 import numpy as np
 
-from .utils import clean_dataframe, create_json_schema, get_abs_path
+from .utils import create_json_schema, get_abs_path
 
 
 class S3Client:
     def __init__(self, aws_access_key_id, aws_secret_access_key):
         self._session = boto3.Session(
-            aws_access_key_id=aws_access_key_id, 
-            aws_secret_access_key=aws_secret_access_key)
-        self._s3 = self._session.resource('s3')
+            aws_access_key_id=aws_access_key_id,
+            aws_secret_access_key=aws_secret_access_key,
+        )
+        self._s3 = self._session.resource("s3")
 
     def get_bucket(self, bucket_name):
         return self._s3.Bucket(bucket_name)
 
-
-    def get_objects(self, bucket, prefix=''):
+    def get_objects(self, bucket, prefix=""):
         return bucket.objects.filter(Prefix=prefix)
-
 
     def filter_objects_by_pattern(self, objects, pattern):
         objs = []
@@ -35,38 +34,37 @@ class S3Client:
                 objs.append(object)
         return objs
 
-
-    def get_schema(self, bucket_name, search_prefix, search_pattern, file_type, delimiter):
-        bucket  = self.get_bucket(bucket_name)
+    def get_schema(
+        self, bucket_name, search_prefix, search_pattern, file_type, delimiter
+    ):
+        bucket = self.get_bucket(bucket_name)
         objects = self.filter_objects_by_pattern(
-            self.get_objects(bucket, search_prefix),
-            search_pattern)
-        
+            self.get_objects(bucket, search_prefix), search_pattern
+        )
+
         df = None
         json_obj = {}
-        if file_type == 'csv':
+        if file_type == "csv":
             for obj in objects:
-                df = clean_dataframe(pd.read_csv(obj.get()['Body'], index_col=None, dtype=str).clean_names(remove_special=True))
-                for column, column_vals in df.iteritems():
-                    if not json_obj.get(column, None):
-                        json_obj[column] = None
-                        valid_value_index = column_vals.first_valid_index()
-                        if valid_value_index is not None:
-                            json_obj[column] = column_vals[valid_value_index]
-                if None not in json_obj.values():
-                    return create_json_schema(json_obj)
+                df = pd.read_csv(
+                    obj.get()["Body"], index_col=None, dtype=str
+                ).clean_names(remove_special=True)
+                for column in df.columns:
+                    json_obj[column] = "string"
             return create_json_schema(json_obj)
 
-        if file_type == 'json':
-            with open(get_abs_path('schemas/menu_export.json')) as f:
+        if file_type == "json":
+            with open(get_abs_path("schemas/menu_export.json")) as f:
                 return json.load(f)
-        
 
-    
     def read_csv_objects(self, objects):
         dfs = []
         for obj in objects:
-            dfs.append(pd.read_csv(obj.get()['Body'], index_col=None, dtype=str).clean_names(remove_special=True))
+            dfs.append(
+                pd.read_csv(obj.get()["Body"], index_col=None, dtype=str).clean_names(
+                    remove_special=True
+                )
+            )
         if len(dfs) <= 1:
             try:
                 return clean_dataframe(dfs[0])
@@ -75,12 +73,10 @@ class S3Client:
         else:
             return clean_dataframe(pd.concat(dfs, ignore_index=True))
 
-        
     def read_json_objects(self, objects):
         json_objs = []
         for obj in objects:
-            raw_data = json.loads(obj.get()['Body'].read())
-            menus = raw_data['menus']
+            raw_data = json.loads(obj.get()["Body"].read())
+            menus = raw_data["menus"]
             json_objs.extend(menus)
         return json_objs
-
