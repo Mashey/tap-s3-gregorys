@@ -1,4 +1,4 @@
-__version__ = '0.1.0'
+__version__ = "0.1.0"
 
 import json
 
@@ -8,10 +8,10 @@ from .discover import discover
 from .sync import sync
 
 REQUIRED_CONFIG_KEYS = [
-    'aws_access_key_id',
-    'aws_secret_access_key',
-    'start_date',
-    'tables',
+    "aws_access_key_id",
+    "aws_secret_access_key",
+    "start_date",
+    "tables",
 ]
 
 LOGGER = singer.get_logger()
@@ -28,5 +28,6 @@ def main():
     else:
         sync(args.config, args.state, catalog)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
