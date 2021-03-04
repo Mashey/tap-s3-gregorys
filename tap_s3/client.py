@@ -1,7 +1,6 @@
 import boto3
 import json
 import pandas as pd
-import numpy as np
 
 from .utils import create_json_schema, get_abs_path
 
@@ -56,27 +55,3 @@ class S3Client:
         if file_type == "json":
             with open(get_abs_path("schemas/menu_export.json")) as f:
                 return json.load(f)
-
-    def read_csv_objects(self, objects):
-        dfs = []
-        for obj in objects:
-            dfs.append(
-                pd.read_csv(obj.get()["Body"], index_col=None, dtype=str).clean_names(
-                    remove_special=True
-                )
-            )
-        if len(dfs) <= 1:
-            try:
-                return clean_dataframe(dfs[0])
-            except IndexError:
-                return pd.DataFrame()
-        else:
-            return clean_dataframe(pd.concat(dfs, ignore_index=True))
-
-    def read_json_objects(self, objects):
-        json_objs = []
-        for obj in objects:
-            raw_data = json.loads(obj.get()["Body"].read())
-            menus = raw_data["menus"]
-            json_objs.extend(menus)
-        return json_objs
