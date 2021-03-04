@@ -2,6 +2,7 @@ import singer
 from singer import Transformer, metadata
 from .client import S3Client
 from .streams import Stream
+from .utils import convert_record
 
 LOGGER = singer.get_logger()
 
@@ -37,8 +38,8 @@ def sync(config, state, catalog):
                     config['start_date']))
 
             for record in stream_obj.sync(last_modified):
-                LOGGER.debug(f'Attempting to write {record}')
-                transformed_record = transformer.transform(record, stream_schema, stream_metadata)
+                LOGGER.debug(f'Converting record: {record}')
+                transformed_record = transformer.transform(convert_record(record, stream_schema), stream_schema, stream_metadata)
                 LOGGER.info(f"Writing record: {transformed_record}")
                 singer.write_record(
                     tap_stream_id,
