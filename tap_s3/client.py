@@ -55,33 +55,12 @@ class S3Client:
                             json_obj[column] = column_vals[valid_value_index]
                 if None not in json_obj.values():
                     return create_json_schema(json_obj)
-                    
-                            
-                # records = df.replace({np.nan:None}).to_dict('records')
-                # for record in records:
-                #     for k, v in record.items():
-                #         if v is not None:
-                #             pass
-
-            # df = self.read_csv_objects(objects)
+            return create_json_schema(json_obj)
 
         if file_type == 'json':
             with open(get_abs_path('schemas/menu_export.json')) as f:
                 return json.load(f)
-
-
-        # build the most complete json object as possible
-        # row data doesn't matter, just types
-        # json_obj = {}
-        # for column, column_vals in df.iteritems():
-        #     json_obj[column] = None
-        #     value = ''
-        #     valid_value_index = column_vals.first_valid_index()
-        #     if valid_value_index is not None:
-        #         value = column_vals[valid_value_index]
-        #     json_obj[column] = value
         
-        return create_json_schema(json_obj)
 
     
     def read_csv_objects(self, objects):
