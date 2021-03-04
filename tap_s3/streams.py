@@ -4,6 +4,8 @@ import pandas as pd
 import janitor
 import singer
 
+from .utils import clean_dataframe
+
 class Stream:
     def __init__(self, client, table_spec, state=None):
         self.client                 = client
@@ -28,10 +30,11 @@ class Stream:
         objects = self.client.get_updated_objects(objects, last_modified)
 
         if self.file_type == 'csv':
-            df = self.client.read_csv_objects(objects)
-            records = df.replace({np.nan:None}).to_dict('records')
-            for record in records:
-                yield record
+            for obj in objects:
+                df = clean_dataframe(pd.read_csv(obj.get()['Body'], index_col=None, dtype=str).clean_names(remove_special=True))
+                records = df.replace({np.nan:None}).to_dict('records')
+                for record in records:
+                    yield record
 
         if self.file_type == 'json':
             records = self.client.read_json_objects(objects)
