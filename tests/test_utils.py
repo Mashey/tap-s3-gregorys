@@ -14,6 +14,20 @@ def people_csv_data():
     """
 
 @pytest.fixture
+def people_schema():
+    return {
+        'type': ['object', 'null'],
+        'properties': {
+            'id': { 'type': ['null', 'integer'] },
+            'name': { 'type': ['null', 'string'] },
+            'age': { 'type': ['null', 'integer'] },
+            'cash': { 'type': ['null', 'number'] },
+            'is_active': { 'type': ['null', 'boolean'] },
+            'phone': { 'type': ['null', 'string'] }
+        }
+    }
+
+@pytest.fixture
 def records():
     return [
         {'id': 0, 'name': 'dan', 'age': 10, 'cash': 11.0, 'is_active': True, 'phone': '5555451234'},
@@ -48,6 +62,10 @@ def test_clean_dataframe(raw_people_df, records):
     cleaned_records = cleaned_df.replace({np.nan:None}).to_dict('records')
 
     assert cleaned_records == records
+
+def test_convert_record(records, people_schema):
+    for record in records:
+        assert convert_record(record, people_schema) == record
 
 def test_create_integer_property():
     assert create_integer_property() == { "type": ['null', 'integer'] }
