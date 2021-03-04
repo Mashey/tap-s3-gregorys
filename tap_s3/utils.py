@@ -63,6 +63,28 @@ def convert_data(df, column, type):
         return df
     return df
 
+def convert_record(record, schema):
+    converted_record = {}
+    for key, value in record.items():
+        converted_record[key] = value
+        if value == None: 
+            continue
+        types = schema['properties'][key]['type']
+        key_type = ""
+        for type in types:
+            if type != 'null':
+                key_type = type
+                break
+        if key_type == 'integer':
+            converted_record[key] = int(value)
+        elif key_type == 'number':
+            converted_record[key] = float(value)
+        elif key_type == 'boolean':
+            converted_record[key] = value
+        else:
+            converted_record[key] = str(value)
+    return converted_record
+
 
 def property_types():
     return {
