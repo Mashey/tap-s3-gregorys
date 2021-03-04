@@ -1,6 +1,7 @@
 import boto3
 import json
 import pandas as pd
+import numpy as np
 
 from .utils import clean_dataframe, create_json_schema, get_abs_path
 
@@ -42,8 +43,27 @@ class S3Client:
             search_pattern)
         
         df = None
+        json_obj = {}
         if file_type == 'csv':
-            df = self.read_csv_objects(objects)
+            for obj in objects:
+                df = clean_dataframe(pd.read_csv(obj.get()['Body'], index_col=None, dtype=str).clean_names(remove_special=True))
+                for column, column_vals in df.iteritems():
+                    if not json_obj.get(column, None):
+                        json_obj[column] = None
+                        valid_value_index = column_vals.first_valid_index()
+                        if valid_value_index is not None:
+                            json_obj[column] = column_vals[valid_value_index]
+                if None not in json_obj.values():
+                    return create_json_schema(json_obj)
+                    
+                            
+                # records = df.replace({np.nan:None}).to_dict('records')
+                # for record in records:
+                #     for k, v in record.items():
+                #         if v is not None:
+                #             pass
+
+            # df = self.read_csv_objects(objects)
 
         if file_type == 'json':
             with open(get_abs_path('schemas/menu_export.json')) as f:
@@ -52,14 +72,14 @@ class S3Client:
 
         # build the most complete json object as possible
         # row data doesn't matter, just types
-        json_obj = {}
-        for column, column_vals in df.iteritems():
-            json_obj[column] = None
-            value = ''
-            valid_value_index = column_vals.first_valid_index()
-            if valid_value_index is not None:
-                value = column_vals[valid_value_index]
-            json_obj[column] = value
+        # json_obj = {}
+        # for column, column_vals in df.iteritems():
+        #     json_obj[column] = None
+        #     value = ''
+        #     valid_value_index = column_vals.first_valid_index()
+        #     if valid_value_index is not None:
+        #         value = column_vals[valid_value_index]
+        #     json_obj[column] = value
         
         return create_json_schema(json_obj)
 
