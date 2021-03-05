@@ -1,4 +1,5 @@
 import janitor
+import json
 import numpy as np
 import pandas as pd
 
@@ -26,6 +27,7 @@ class Stream:
         )
         objects = self.client.get_updated_objects(objects, last_modified)
 
+
         if self.file_type == "csv":
             for obj in objects:
                 df = pd.read_csv(
@@ -36,9 +38,11 @@ class Stream:
                     yield record
 
         if self.file_type == "json":
-            records = self.client.read_json_objects(objects)
-            for record in records:
-                yield record
+            for obj in objects:
+                raw_data = json.loads(obj.get()['Body'].read())
+                records = raw_data['menus']
+                for record in records:
+                    yield record
 
     def get_schema(self):
         return self.client.get_schema(
