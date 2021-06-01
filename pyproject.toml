@@ -10,16 +10,23 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.8"
 boto3 = "^1.16.59"
-python-dotenv = "^0.15.0"
 singer-python = "^5.9.1"
 pandas = "^1.2.1"
 pyjanitor = "^0.20.10"
 multipledispatch = "^0.6.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
-moto = {extras = ["s3"], version = "^1.3.16"}
 coverage = "^5.4"
+pylint = "^2.6.0"
+pytest = "^6.2.2"
+pytest-cov = "^2.11.1"
+coveralls = "^3.0.0"
+pytest-mock = "^3.5.1"
+pytest-vcr = "^1.0.2"
+python-dotenv = "^0.15.0"
+vcrpy = "^4.1.1"
+black = "^21.5b1"
+moto = {extras = ["s3"], version = "^2.0.8"}
 
 [tool.poetry.scripts]
 tap-s3 = 'tap_s3:main'
